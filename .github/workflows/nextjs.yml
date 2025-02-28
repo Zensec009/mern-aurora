@@ -91,9 +91,7 @@ jobs:
       # Build Next.js client
       - name: Build Next.js Client
         working-directory: ./client
-        run: |
-          npm run build
-          npm run export
+        run: npm run build
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
