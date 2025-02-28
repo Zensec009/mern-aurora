@@ -48,11 +48,16 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: ${{ steps.detect-package-manager.outputs.manager }}
+          cache: npm
+          cache-dependency-path: |
+            client/package-lock.json
+            server/package-lock.json
+
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
@@ -71,14 +76,29 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
-      - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
-      - name: Upload artifact
+      # Install dependencies for server
+      - name: Install Server Dependencies
+        working-directory: ./server
+        run: npm ci
+      # Install dependencies for client
+      - name: Install Client Dependencies
+        working-directory: ./client
+        run: npm ci
+      # Build Express server
+      - name: Build Server
+        working-directory: ./server
+        run: npm run build
+      # Build Next.js client
+      - name: Build Next.js Client
+        working-directory: ./client
+        run: |
+          npm run build
+          npm run export
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+            path: ./client/out
+  
 
   # Deployment job
   deploy:
