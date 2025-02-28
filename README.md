@@ -1,12 +1,18 @@
-# README:
+**Repository Name:** MERN AURORA
 
-**Description:**
+## Standardized Technology:
 
-> This a template repository for MERN Stack projects. 
+MongoDB, ExpressJS, ReactJS, NodeJS, Mongoose, NextJS, ShadCDN
 
-**Project Structure:**
+
+## Project Structure:
 
 ``` bash
+|--> Customs
+|    |--> ...
+|    |--> custom-login.ts
+|    |--> custom-signup.ts
+|    |--> ...
 |--> Client
 |    |--> ...
 |    |--> pages
@@ -20,7 +26,5 @@
 |    |--> ...
 
 ```
-
-**Repository Name:** MERN AURORA
 
 **Authored By:** *Zensec009*
