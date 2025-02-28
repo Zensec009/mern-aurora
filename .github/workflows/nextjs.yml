@@ -57,7 +57,6 @@ jobs:
             client/package-lock.json
             server/package-lock.json
 
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
@@ -66,6 +65,7 @@ jobs:
           #
           # You may remove this line if you want to manage the configuration yourself.
           static_site_generator: next
+          enablement: true # Ensure Pages is enabled
       - name: Restore cache
         uses: actions/cache@v4
         with:
